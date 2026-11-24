@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insights and Updates | Hackademic</title>
+<meta name="description" content="Read the latest cybersecurity, technology and learning insights from Hackademic.">
+<link rel="canonical" href="https://www.hackademic.in/blog.html">
+<link rel="icon" href="/assets/hackademic-mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/footer.css">
+<style>
+:root{--dark:#033845;--deep:#022733;--blue:#14b7f7;--body:#4a6672;--line:#d9ecf4;--pale:#f1faff}
+*{box-sizing:border-box}
+body{margin:0;color:var(--dark);font:16px/1.65 Inter,Arial,sans-serif;background:#f6fbfd}
+a{color:inherit;text-decoration:none}
+.blog-nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:14px max(24px,calc((100% - 1180px)/2));background:#fff;border-bottom:1px solid var(--line)}
+.blog-brand img{display:block;width:auto;height:48px;max-width:210px}
+.blog-links{display:flex;flex-wrap:wrap;align-items:center;gap:20px;font-size:13px;font-weight:600}
+.blog-links a:hover{color:#087fc0}
+.blog-links .blog-portal{padding:9px 14px;border-radius:9px;background:var(--dark);color:#fff}
+.blog-main{width:min(1120px,calc(100% - 40px));min-height:48vh;margin:0 auto;padding:54px 0 76px}
+.blog-hero{margin-bottom:26px;padding:28px;border:1px solid #cfe7f1;border-radius:16px;background:linear-gradient(110deg,#e8f8fd,#f3fbfd)}
+.blog-hero small{color:#087fc0;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.blog-hero h1{margin:7px 0;color:var(--dark);font:700 clamp(28px,4vw,40px)/1.2 Sora,Inter,sans-serif}
+.blog-hero p{margin:0;color:var(--body)}
+.blog-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.blog-card,.blog-article,.blog-empty{padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.blog-card{display:flex;flex-direction:column;min-height:210px}
+.blog-card time,.blog-article time{color:#68808d;font-size:12px}
+.blog-card h2{margin:9px 0 5px;font:600 19px/1.35 Sora,Inter,sans-serif}
+.blog-card p{flex:1;margin:0 0 18px;color:var(--body);font-size:14px}
+.blog-read{color:#087fc0;font-size:13px;font-weight:700}
+.blog-article{max-width:820px;margin:0 auto}
+.blog-article h1{margin:8px 0 18px;font:700 clamp(26px,4vw,38px)/1.25 Sora,Inter,sans-serif}
+.blog-article p{margin:0 0 16px;color:#304e59;white-space:pre-wrap}
+.blog-back{display:inline-block;margin-bottom:16px;color:#087fc0;font-weight:600}
+.blog-error{color:#a53636}
+@media(max-width:800px){.blog-nav{align-items:flex-start;flex-direction:column}.blog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.blog-main{width:calc(100% - 28px);padding:28px 0 48px}.blog-grid{grid-template-columns:1fr}.blog-hero{padding:20px}}
+</style>
+<link rel="stylesheet" href="/navigation.css">
+</head>
+<body>
+<header class="blog-nav">
+ <a class="blog-brand" href="/" aria-label="Hackademic home"><img src="/assets/hackademic-full-logo.png" alt="Hackademic Private Limited" width="330" height="54"></a>
+ <button class="blog-menu-toggle" type="button" aria-controls="blog-links" aria-expanded="false" aria-label="Open navigation menu">☰</button>
+ <nav class="blog-links" id="blog-links" aria-label="Main navigation">
+  <a href="/">Home</a><a href="/services.html">Services</a><a href="/courses.html">Courses</a><a href="/about.html">About</a><a href="/blog.html" aria-current="page">Blog</a><a href="/contact.html">Contact</a><a class="blog-portal" href="/portal.html">Learning Hub</a>
+ </nav>
+</header>
+<main class="blog-main">
+ <section class="blog-hero"><small>Hackademic Insights</small><h1>Ideas for learning and building</h1><p>Updates and practical insights from our team.</p></section>
+ <div id="blogContent" aria-live="polite"><p>Loading posts…</p></div>
+</main>
+<footer class="site-footer">
+ <div class="site-footer__inner">
+  <div class="site-footer__grid">
+   <div class="site-footer__brand-col">
+    <a class="site-footer__logo" href="/" aria-label="Hackademic home"><img src="/assets/hackademic-logo.png" alt="Hackademic logo" width="180" height="54" loading="lazy"></a>
+    <p class="site-footer__description">Hackademic offers a best cyber security course in Dehradun, an ethical hacking course, cyber security internship with 100% placement support, real world projects , practical labs and job assistance to build learners career.</p>
+    <div class="site-footer__social">
+     <strong class="site-footer__heading">Social Links</strong>
+     <div class="site-footer__social-links">
+      <a href="https://www.facebook.com/share/1GfyPEo8jK/" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.5V10H7v3h2.6v8h3.6Z"/></svg></a>
+      <a href="https://www.instagram.com/hackademic_pvt_ltd?utm_source=ig_web_button_share_sheet&amp;fqnt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on Instagram"><svg class="icon-outline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.6" cy="6.8" r=".8" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://x.com/HackademicHQ" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on X"><svg class="icon-outline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 4 16 16M20 4 4 20"/></svg></a>
+      <a href="https://www.linkedin.com/company/hackademic-private-limited/home/" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on LinkedIn"><svg class="icon-outline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M7.5 10v7m0-9v.01M11 17v-7m0 3c0-2 4.5-2.5 4.5.5V17"/></svg></a>
+     </div>
+    </div>
+   </div>
+   <nav aria-label="Quick links">
+    <h2 class="site-footer__heading">Quick Links</h2>
+    <ul class="site-footer__links"><li><a href="/about.html">About Us</a></li><li><a href="/#courses">Courses</a></li><li><a href="/services.html">Services</a></li><li><a href="/certificate.html">Verify Certificate</a></li><li><a href="https://cybercrime.gov.in/home">Report a Cyber Crime</a></li></ul>
+   </nav>
+   <div>
+    <h2 class="site-footer__heading">Legal</h2>
+    <ul class="site-footer__links"><li><a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a></li><li><a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li><li><a href="/portal.html">Admin Login</a></li><li><a href="/portal.html">Manager Panel</a></li></ul>
+   </div>
+   <div class="site-footer__contact-col">
+    <h2 class="site-footer__heading">Contact</h2>
+    <div class="site-footer__contact"><a href="mailto:info@hackademic.in"><span class="site-footer__contact-icon" aria-hidden="true">✉</span><span>info@hackademic.in</span></a><a href="tel:+916396111576"><span class="site-footer__contact-icon" aria-hidden="true">☎</span><span>+91 6396111576</span></a><a href="https://maps.google.com/?q=C-64%2C%20Nehru%20Colony%2C%20Dehradun%2C%20248001" target="_blank" rel="noopener noreferrer"><span class="site-footer__contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 21s7-5.3 7-11a7 7 0 1 0-14 0c0 5.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span>C-64, Nehru Colony, Dehradun, 248001</span></a></div>
+   </div>
+  </div>
+  <div class="site-footer__bottom"><span>© 2026 HACKADEMIC. All rights reserved.</span></div>
+ </div>
+</footer>
+<script src="/blog.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+.site-footer .site-footer__grid > nav {
+  align-content: start;
+  gap: 0;
+}
+
+.site-footer .site-footer__heading {
+  margin-bottom: 4px;
+}
+
+.site-footer .site-footer__links {
+  gap: 2px;
+}

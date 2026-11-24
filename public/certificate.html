@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cyber Security Certificate Verification | Hackademic</title>
+  <meta name="description" content="Verify an issued Hackademic cyber security course certificate using a certificate ID in our official public certificate verification system.">
+  <link rel="canonical" href="https://www.hackademic.in/certificate.html">
+  <link rel="icon" href="/assets/hackademic-mark.png" type="image/png">
+  <meta property="og:title" content="Cyber Security Certificate Verification">
+  <meta property="og:description" content="Verify issued Hackademic certificates online with a certificate ID.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.hackademic.in/certificate.html">
+  <meta property="og:image" content="https://www.hackademic.in/assets/hackademic-full-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cyber Security Certificate Verification">
+  <meta name="twitter:description" content="Verify issued Hackademic certificates online.">
+  <meta name="twitter:image" content="https://www.hackademic.in/assets/hackademic-full-logo.png">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do I get my certificate ID?","acceptedAnswer":{"@type":"Answer","text":"The certificate ID is printed on the certificate and was also sent to the registered email after course completion."}},{"@type":"Question","name":"What if my certificate is not found?","acceptedAnswer":{"@type":"Answer","text":"Double-check the certificate ID. If the issue persists, contact info@hackademic.in."}}]}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/footer.css">
+  <style>
+    :root{--dark:#033845;--dark-2:#06566b;--deep:#022733;--blue:#14b7f7;--blue-2:#0e9fdb;--blue-soft:#d6f1fd;--pale:#edf9fe;--line:#d9ecf4;--body:#4a6672;--f-head:'Sora',sans-serif;--f-body:'Inter',Arial,sans-serif}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:#fff;color:var(--dark);font:15px/1.6 var(--f-body)}
+    a{color:inherit;text-decoration:none}
+    .header{height:86px;padding:12px 5%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line)}
+    .brand img{display:block;width:auto;height:54px;max-width:min(65vw,440px);object-fit:contain}
+    .back{padding:10px 15px;border:1px solid var(--line);border-radius:10px;font-weight:600}
+    .back:hover{border-color:var(--blue)}
+    .verify-hero{position:relative;isolation:isolate;overflow:visible;min-height:410px;display:grid;place-items:center;padding:54px 24px 126px;background:linear-gradient(180deg,#dff3fb,#f4fbfe 88%);color:var(--dark);text-align:center}
+    .verify-hero::before{content:"";position:absolute;z-index:0;inset:0;pointer-events:none;background-image:radial-gradient(rgba(3,56,69,.12) 1.2px,transparent 1.2px),radial-gradient(ellipse at 75% 30%,rgba(20,183,247,.22),transparent 34rem);background-size:30px 30px,auto;-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 78%);mask-image:radial-gradient(ellipse at 70% 40%,#000 0%,transparent 78%)}
+    .verify-hero__backdrop{position:absolute;z-index:0;inset:0;overflow:hidden;pointer-events:none}
+    .verify-hero__seal{position:absolute;z-index:0;top:-24px;left:50%;width:340px;height:340px;transform:translateX(-50%);opacity:.08;filter:drop-shadow(0 0 28px rgba(20,183,247,.3));animation:seal-pulse 7s ease-in-out infinite}
+    .verify-hero__seal svg{display:block;width:100%;height:100%;fill:none;stroke:var(--blue-2);stroke-width:2}
+    @keyframes seal-pulse{0%,100%{opacity:.04;transform:translateX(-50%) scale(.98)}50%{opacity:.1;transform:translateX(-50%) scale(1.02)}}
+    @keyframes shine{0%{background-position:0 0}100%{background-position:220% 0}}
+    .verify-hero__content{position:relative;z-index:1;max-width:850px}
+    .verify-hero__eyebrow{display:inline-flex;align-items:center;gap:10px;padding:7px 18px 7px 7px;border:1px solid var(--line);border-radius:99px;background:#fff;color:var(--body);box-shadow:0 6px 20px rgba(3,56,69,.07);font:500 14px var(--f-body);letter-spacing:0;text-transform:none}
+    .verify-hero__dot{position:relative;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--dark);color:#fff;font:600 10px var(--f-head)}
+    .verify-hero__dot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--blue);animation:hero-dot-pulse 2s infinite}
+    @keyframes hero-dot-pulse{0%{transform:scale(.7);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+    .verify-hero h1{margin:26px 0 18px;color:var(--dark);font-size:clamp(42px,6vw,68px);font-weight:800;line-height:1.04;letter-spacing:-.035em}
+    .verify-hero h1 span{background:linear-gradient(100deg,var(--dark) 0%,var(--dark-2) 35%,var(--blue) 80%,var(--dark-2) 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+    .verify-hero__content p{max-width:620px;margin:0 auto;color:var(--body);font-size:17px}
+    .verify-steps{position:absolute;z-index:2;bottom:-58px;left:50%;width:min(1024px,calc(100% - 48px));transform:translateX(-50%);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:21px 24px;border:1px solid var(--line);border-radius:17px;background:linear-gradient(180deg,#fff,#fbfdfe);box-shadow:0 18px 42px rgba(3,56,69,.12)}
+    .verify-steps::before{content:"";position:absolute;top:41px;left:18%;right:18%;height:1px;background:linear-gradient(90deg,transparent,var(--blue) 18%,var(--blue) 82%,transparent);opacity:.45}
+    .verify-step{position:relative;z-index:1;display:grid;justify-items:center;gap:5px;text-align:center}
+    .verify-step__icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--line);border-radius:11px;background:var(--blue-soft);color:var(--dark-2);transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s,background .3s,border-color .3s,color .3s}
+    .verify-step__icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .verify-step:hover .verify-step__icon{background:var(--dark);border-color:var(--dark);color:#fff;box-shadow:0 12px 24px rgba(3,56,69,.2)}
+    .verify-step:first-child:hover .verify-step__icon{transform:translateY(-5px) rotate(-8deg) scale(1.08)}
+    .verify-step:nth-child(2):hover .verify-step__icon{transform:translateY(-5px) rotate(8deg) scale(1.08)}
+    .verify-step:nth-child(3):hover .verify-step__icon{transform:translateY(-5px) scale(1.12)}
+    .verify-step strong{color:var(--dark);font-size:12px;line-height:1.3}
+    .verify-step small{color:var(--body);font-size:11px;line-height:1.35}
+    main{max-width:760px;margin:0 auto;padding:110px 24px 72px}
+    .panel{max-width:504px;margin:0 auto;padding:34px 36px 52px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 16px 34px rgba(3,56,69,.12);text-align:center}
+    .eyebrow{display:inline-block;padding:7px 13px;border-radius:99px;background:#d6f1fd;color:var(--teal);font:700 11px Sora,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+    h1,h2,h3{font-family:var(--f-head)}
+    .certificate-heading{display:grid;justify-items:center;gap:8px;margin-bottom:22px}
+    .certificate-heading__icon{width:48px;height:48px;display:grid;place-items:center;border:1px solid #b9e4f7;border-radius:13px;background:#d9f1fc;color:#149fe7}
+    .certificate-heading__icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .certificate-heading h2{margin:3px 0 0;color:#243b55;font-size:17px;line-height:1.35}
+    .certificate-heading p{margin:0;color:#71859a;font-size:11px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .certificate-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:center;text-align:left}
+    .certificate-input-wrap{position:relative}
+    .certificate-input-wrap svg{position:absolute;top:50%;left:13px;width:16px;height:16px;transform:translateY(-50%);fill:none;stroke:#71859a;stroke-width:2;stroke-linecap:round;pointer-events:none}
+    input{width:100%;height:44px;padding:11px 12px 11px 36px;border:1.5px solid var(--line);border-radius:10px;background:#f7fafc;font:12px Inter,Arial,sans-serif;color:var(--dark);outline:none}
+    input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(20,183,247,.16)}
+    button{justify-self:start;padding:12px 18px;border:0;border-radius:11px;background:var(--dark);color:#fff;font:700 14px Sora,Inter,sans-serif;cursor:pointer}
+    button:hover{background:var(--teal)}
+    button:disabled{opacity:.6;cursor:wait}
+    .certificate-form__button{height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 17px;border-radius:10px;background:linear-gradient(105deg,#079fe9,#38b8f5);box-shadow:0 5px 10px rgba(13,145,211,.2);font:600 11px Inter,Arial,sans-serif;white-space:nowrap}
+    .certificate-form__button:hover{background:linear-gradient(105deg,#078fd0,#20a8e8)}
+    .certificate-form__button svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+    .certificate-trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:22px 0 0;padding:0;list-style:none}
+    .certificate-trust li{min-height:34px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:9px;background:#f3f8fa;color:#6b8193;font-size:10px;white-space:nowrap}
+    .certificate-trust svg{width:13px;height:13px;fill:none;stroke:#119ee5;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .certificate-result{max-width:504px;margin:24px auto 0}
+    .certificate-result:empty{display:none}
+    .certificate-result__card{padding:25px 20px 27px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(135deg,#fff,#fbfdff);box-shadow:0 12px 24px rgba(3,56,69,.08);text-align:center}
+    .certificate-result.invalid .certificate-result__card,.certificate-result.error .certificate-result__card{border-color:#ff6b6b}
+    .certificate-result.verified .certificate-result__card{border-color:#86d3ac}
+    .certificate-result__icon{width:44px;height:44px;display:grid;place-items:center;margin:0 auto 10px;border:4px solid #ef4444;border-radius:50%;color:#ef4444}
+    .certificate-result.verified .certificate-result__icon{border-color:#16a34a;color:#16a34a}
+    .certificate-result__icon svg{width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+    .certificate-result__card h2{margin:0 0 3px;color:#26384d;font-size:17px}
+    .certificate-result__card p{margin:0;color:#71859a;font-size:12px}
+    .certificate-card{margin-top:18px;padding:17px;border:1px solid var(--line);border-radius:12px;background:#f8fcfe;text-align:left}
+    .certificate-card dl{display:grid;grid-template-columns:1fr 1fr;gap:14px 22px;margin:0}
+    .certificate-card dt{font-size:12px;color:var(--body)}
+    .certificate-card dd{margin:3px 0 0;font-weight:600;overflow-wrap:anywhere}
+    .faq{max-width:650px;margin:64px auto 0}
+    .faq-heading{text-align:center;margin-bottom:28px}
+    .faq-heading .eyebrow{padding:0;background:none;color:var(--blue)}
+    .faq-heading h2{margin:8px 0;font-size:clamp(25px,4vw,32px)}
+    .faq-heading p{margin:0;color:var(--body)}
+    .faq-list{display:grid;gap:10px}
+    .faq-item{overflow:hidden;border:1px solid var(--line);border-radius:13px;background:#fff}
+    .faq-item.is-open{border-color:#b9ddf1}
+    .faq-toggle{width:100%;display:grid;grid-template-columns:24px 1fr 16px;align-items:center;gap:12px;padding:14px 17px;border:0;border-radius:0;background:transparent;color:var(--dark);font:inherit;text-align:left;cursor:pointer}
+    .faq-toggle:hover{background:#f8fcfe}
+    .faq-toggle:focus-visible{outline:3px solid var(--blue);outline-offset:-3px}
+    .faq-icon{width:24px;height:24px;display:grid;place-items:center;border-radius:8px;background:#d6f1fd;color:#149de0;font-weight:700}
+    .faq-question{font-size:13px;font-weight:600}
+    .faq-chevron{justify-self:end;color:var(--body);transition:transform .2s}
+    .faq-item.is-open .faq-chevron{transform:rotate(180deg)}
+    .faq-answer-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.2,.7,.2,1)}
+    .faq-item.is-open .faq-answer-wrap{grid-template-rows:1fr}
+    .faq-answer-inner{min-height:0;overflow:hidden;opacity:0;transform:translateY(-4px);transition:opacity .24s ease,transform .24s ease}
+    .faq-item.is-open .faq-answer-inner{opacity:1;transform:translateY(0)}
+    .faq-answer{margin:0;padding:0 20px 16px 53px;color:var(--body);font-size:13px}
+    @media(max-width:600px){.header{height:72px;padding:10px 4%}.brand img{height:42px}.verify-hero{min-height:360px;padding:48px 16px 112px}.verify-hero__seal{top:-10px;width:290px;height:290px}.verify-hero h1{font-size:clamp(32px,8vw,44px)}.verify-hero__content p{font-size:14px}.verify-steps{bottom:-52px;width:calc(100% - 28px);gap:4px;padding:15px 8px}.verify-steps::before{top:32px;left:19%;right:19%}.verify-step{gap:5px}.verify-step__icon{width:32px;height:32px;border-radius:9px}.verify-step__icon svg{width:17px;height:17px}.verify-step strong{font-size:11px}.verify-step small{font-size:9px}main{padding:102px 16px 42px}.panel{padding:28px 20px 34px}.certificate-form{grid-template-columns:1fr}.certificate-form__button{width:100%}.certificate-trust{gap:5px}.certificate-trust li{gap:4px;font-size:9px}.certificate-card dl{grid-template-columns:1fr}}
+    @media(max-width:420px){.faq-toggle{padding:12px;gap:9px}.faq-answer{padding:0 14px 14px 45px}}
+    @media(prefers-reduced-motion:reduce){.verify-hero__seal,.verify-hero__dot::after,.verify-hero h1 span{animation:none}.verify-step__icon,.faq-answer-wrap,.faq-answer-inner,.faq-chevron{transition:none}}
+  </style>
+<link rel="stylesheet" href="/navigation.css">
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="/" aria-label="Hackademic home"><img src="/assets/hackademic-logo.png" alt="Hackademic logo" width="180" height="54" loading="lazy"></a>
+    <a class="back" href="/">← Back to website</a>
+  </header>
+  <section class="verify-hero" aria-labelledby="verify-title">
+    <div class="verify-hero__backdrop" aria-hidden="true">
+      <div class="verify-hero__seal">
+        <svg viewBox="0 0 380 380"><circle cx="190" cy="190" r="151"></circle><circle cx="190" cy="190" r="132" stroke-dasharray="3 8"></circle><path d="M190 76l79 30v76c0 55-32 99-79 123-47-24-79-68-79-123v-76z"></path><path d="m153 184 25 25 52-55"></path></svg>
+      </div>
+    </div>
+    <div class="verify-hero__content">
+      <span class="verify-hero__eyebrow"><span class="verify-hero__dot" aria-hidden="true">ID</span> Certificate Verification Portal</span>
+      <h1 id="verify-title">Cyber Security Certificate <span>Verification</span></h1>
+      <p>Enter the certificate number to confirm it was issued by Hackademic.</p>
+    </div>
+    <div class="verify-steps" aria-label="Certificate verification steps">
+      <div class="verify-step"><span class="verify-step__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z"></path><path d="M14 3v5h5M9 13h6M9 17h6"></path></svg></span><strong>Enter ID</strong><small>Type your certificate ID</small></div>
+      <div class="verify-step"><span class="verify-step__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4 4"></path></svg></span><strong>Search</strong><small>We verify against our records</small></div>
+      <div class="verify-step"><span class="verify-step__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 2.5 2.5L16 9"></path></svg></span><strong>Verified</strong><small>Get instant confirmation</small></div>
+    </div>
+  </section>
+  <main>
+    <section class="panel">
+      <div class="certificate-heading">
+        <span class="certificate-heading__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.7-2.8 8-7 10-4.2-2-7-5.3-7-10V6z"></path></svg></span>
+        <h2>Enter Certificate ID</h2>
+        <p>Paste your unique certificate ID below for instant verification</p>
+      </div>
+      <form class="certificate-form" id="certificate-form">
+        <label class="sr-only" for="certificate-number">Certificate ID</label>
+        <span class="certificate-input-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4 4"></path></svg><input autocomplete="off" id="certificate-number" maxlength="100" name="code" placeholder="e.g., HACK-2026-XXXX" required></span>
+        <button class="certificate-form__button" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 4 4"></path></svg>Verify</button>
+      </form>
+      <ul class="certificate-trust" aria-label="Verification assurances">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>Secure</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6zM19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"></path></svg>Instant</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5"></circle><path d="m9 13-1 8 4-2 4 2-1-8"></path></svg>Authentic</li>
+      </ul>
+    </section>
+    <div aria-atomic="true" aria-live="polite" class="certificate-result" id="certificate-result" role="status"></div>
+    <section class="faq" aria-labelledby="faq-title">
+      <div class="faq-heading">
+        <span class="eyebrow">Questions?</span>
+        <h2 id="faq-title">Frequently Asked Questions</h2>
+        <p>Everything you need to know about HACKADEMIC certificates</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item is-open">
+          <button aria-controls="faq-answer-1" aria-expanded="true" class="faq-toggle" id="faq-toggle-1" type="button"><span class="faq-icon" aria-hidden="true">?</span><span class="faq-question">How do I get my certificate ID?</span><span class="faq-chevron" aria-hidden="true">⌄</span></button>
+          <div aria-hidden="false" class="faq-answer-wrap" id="faq-answer-1" role="region" aria-labelledby="faq-toggle-1"><div class="faq-answer-inner"><p class="faq-answer">Your certificate ID is printed on the bottom of your certificate and was also sent to your registered email after course completion.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button aria-controls="faq-answer-2" aria-expanded="false" class="faq-toggle" id="faq-toggle-2" type="button"><span class="faq-icon" aria-hidden="true">?</span><span class="faq-question">What if my certificate is not found?</span><span class="faq-chevron" aria-hidden="true">⌄</span></button>
+          <div aria-hidden="true" class="faq-answer-wrap" id="faq-answer-2" role="region" aria-labelledby="faq-toggle-2" inert><div class="faq-answer-inner"><p class="faq-answer">Please double-check the certificate ID. If the issue persists, contact our support team at <a href="mailto:info@hackademic.in">info@hackademic.in</a>.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button aria-controls="faq-answer-3" aria-expanded="false" class="faq-toggle" id="faq-toggle-3" type="button"><span class="faq-icon" aria-hidden="true">?</span><span class="faq-question">Are HACKADEMIC certificates industry-recognized?</span><span class="faq-chevron" aria-hidden="true">⌄</span></button>
+          <div aria-hidden="true" class="faq-answer-wrap" id="faq-answer-3" role="region" aria-labelledby="faq-toggle-3" inert><div class="faq-answer-inner"><p class="faq-answer">Yes! Our certificates are recognized across the cybersecurity and IT industry and validate your practical skills and knowledge.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button aria-controls="faq-answer-4" aria-expanded="false" class="faq-toggle" id="faq-toggle-4" type="button"><span class="faq-icon" aria-hidden="true">?</span><span class="faq-question">Can employers verify my certificate?</span><span class="faq-chevron" aria-hidden="true">⌄</span></button>
+          <div aria-hidden="true" class="faq-answer-wrap" id="faq-answer-4" role="region" aria-labelledby="faq-toggle-4" inert><div class="faq-answer-inner"><p class="faq-answer">Absolutely. Employers can use this same verification page to confirm the authenticity of your HACKADEMIC certificate.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button aria-controls="faq-answer-5" aria-expanded="false" class="faq-toggle" id="faq-toggle-5" type="button"><span class="faq-icon" aria-hidden="true">?</span><span class="faq-question">How long is my certificate valid?</span><span class="faq-chevron" aria-hidden="true">⌄</span></button>
+          <div aria-hidden="true" class="faq-answer-wrap" id="faq-answer-5" role="region" aria-labelledby="faq-toggle-5" inert><div class="faq-answer-inner"><p class="faq-answer">HACKADEMIC certificates do not expire. However, we recommend staying updated with the latest skills through our advanced courses.</p></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__grid">
+        <div class="site-footer__brand-col">
+          <a class="site-footer__logo" href="/" aria-label="Hackademic home"><img src="/assets/hackademic-logo.png" alt="Hackademic logo" width="180" height="54" loading="lazy"></a>
+          <p class="site-footer__description">Hackademic offers a best cyber security course in Dehradun, an ethical hacking course, cyber security internship with 100% placement support, real world projects , practical labs and job assistance to build learners career.</p>
+          <div class="site-footer__social">
+            <strong class="site-footer__heading">Social Links</strong>
+            <div class="site-footer__social-links">
+              <a href="https://www.facebook.com/share/1GfyPEo8jK/" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M13.2 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.4-.1-2.6-.1-2.6 0-4.3 1.6-4.3 4.5V10H7v3h2.6v8h3.6Z"/></svg></a>
+              <a href="https://www.instagram.com/hackademic_pvt_ltd?utm_source=ig_web_button_share_sheet&amp;fqnt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on Instagram"><svg class="icon-outline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.6" cy="6.8" r=".8" fill="currentColor" stroke="none"/></svg></a>
+              <a href="https://x.com/HackademicHQ" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on X"><svg class="icon-outline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m4 4 16 16M20 4 4 20"/></svg></a>
+              <a href="https://www.linkedin.com/company/hackademic-private-limited/home/" target="_blank" rel="noopener noreferrer" aria-label="Hackademic on LinkedIn"><svg class="icon-outline" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M7.5 10v7m0-9v.01M11 17v-7m0 3c0-2 4.5-2.5 4.5.5V17"/></svg></a>
+            </div>
+          </div>
+        </div>
+        <nav aria-label="Quick links">
+          <h2 class="site-footer__heading">Quick Links</h2>
+          <ul class="site-footer__links">
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/#courses">Courses</a></li>
+            <li><a href="/services.html">Services</a></li>
+            <li><a href="/certificate.html">Verify Certificate</a></li>
+            <li><a href="https://cybercrime.gov.in/home">Report a Cyber Crime</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2 class="site-footer__heading">Legal</h2>
+          <ul class="site-footer__links">
+            <li><a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a></li>
+            <li><a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
+            <li><a href="/portal.html">Admin Login</a></li>
+            <li><a href="/portal.html">Manager Panel</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__contact-col">
+          <h2 class="site-footer__heading">Contact</h2>
+          <div class="site-footer__contact">
+            <a href="mailto:info@hackademic.in"><span class="site-footer__contact-icon" aria-hidden="true">✉</span><span>info@hackademic.in</span></a>
+            <a href="tel:+916396111576"><span class="site-footer__contact-icon" aria-hidden="true">☎</span><span>+91 6396111576</span></a>
+            <a href="https://maps.google.com/?q=C-64%2C%20Nehru%20Colony%2C%20Dehradun%2C%20248001" target="_blank" rel="noopener noreferrer"><span class="site-footer__contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 21s7-5.3 7-11a7 7 0 1 0-14 0c0 5.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg></span><span>C-64, Nehru Colony, Dehradun, 248001</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="site-footer__bottom"><span>© 2026 HACKADEMIC. All rights reserved.</span></div>
+    </div>
+  </footer>
+  <script src="/certificate-verify.js"></script>
+</body>
+</html>
