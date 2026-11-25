@@ -9,3 +9,5 @@ firestore-debug.log
 ui-debug.log
 data/*.db*
 data/recordings/
+.vercel
+.env*

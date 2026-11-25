@@ -1,83 +1,84 @@
-# Hackademic — full-stack development prototype
+# Hackademic
 
-A runnable Node.js multi-role training and company operations platform. The public landing page preserves the supplied Hackademic HTML reference, teal/blue theme and CSS animations. SQLite remains the current application runtime; Firebase Auth and Firestore are configured as an emulator-first migration foundation, not yet as the API's storage backend.
+Hackademic is a static public website with a Firebase-backed Node.js API for authentication, learning workflows, public forms, employee operations, and admin/manager tools. The UI remains under `public/`; the same API handler runs in the local server and as a Vercel serverless function.
 
-## Quick start
+## Local emulator setup
 
-Requires **Node.js 22.5+** (Node's built-in `node:sqlite`).
+Requires Node.js 22.13+ and Java 21+ for Firebase emulators.
 
-```bash
-cd hackademic-platform
-npm run demo   # creates clearly labelled demo data and users; run only on a local test instance
-npm start
-```
+1. Install dependencies and copy the local environment template:
 
-### Firebase emulator migration foundation
+   ```powershell
+   npm.cmd install
+   Copy-Item .env.example .env
+   ```
 
-Install the declared dependencies with `npm install`. The Firebase Auth and Firestore emulators also require Java (use a current supported JDK). The read-only SQLite importer requires Node.js 22.13+; the existing website itself still supports Node.js 22.5+. Start both local emulators in one terminal:
+2. Start Auth and Firestore emulators in one terminal:
 
-```bash
-npm run emulators
-```
+   ```powershell
+   npm.cmd run emulators
+   ```
 
-In another terminal, copy the existing SQLite records into the emulator:
+3. In a second terminal, set emulator-only migration variables and import the retained SQLite backup:
+
+   ```powershell
+   $env:FIREBASE_PROJECT_ID="demo-hackademic-local"
+   $env:FIREBASE_AUTH_EMULATOR_HOST="127.0.0.1:9099"
+   $env:FIRESTORE_EMULATOR_HOST="127.0.0.1:8080"
+   npm.cmd run migrate:firebase
+   ```
+
+4. Start the website:
+
+   ```powershell
+   npm.cmd start
+   ```
+
+Open `http://127.0.0.1:3000/`, `/portal.html`, `/careers.html`, or `/certificate.html`. The local server reads `.env` if present. Emulator data is separate from production and may be reset at any time.
+
+The importer reads `data/hackademic-before-firebase-20261124.db` in read-only mode, writes SQLite tables as Firestore collections, and preserves their IDs. Legacy `sessions` are excluded. Existing Node scrypt hashes are incompatible with Firebase Authentication, so imported accounts have no password until the user completes password reset. Password hashes and salts are stripped from Firestore user records. No production Firebase project is targeted by the migration or test scripts.
+
+## Tests
+
+Run unit tests:
 
 ```powershell
-$env:FIREBASE_PROJECT_ID="demo-hackademic-local"
-$env:FIREBASE_AUTH_EMULATOR_HOST="127.0.0.1:9099"
-$env:FIRESTORE_EMULATOR_HOST="127.0.0.1:8080"
-npm run migrate:firebase
+npm.cmd test
 ```
 
-Set `DB_PATH` to select a different source database. The importer opens SQLite read-only and upserts records into Firestore collections named after their SQLite tables, retaining numeric IDs as document IDs (and using `user_id_lesson_id` for lesson progress). Foreign-key values remain unchanged. It deliberately does not import login sessions; user records have password hashes/salts stripped, and Firebase Auth accounts are created without an imported password, marked `password_reset_required`, and assigned their existing role as a custom claim. Re-running is safe for Firestore data and does not change the source database. The importer rejects non-emulator project IDs and refuses to run unless both emulator host variables are set.
+With Auth and Firestore emulators running and the environment variables above set, run the migration and API integration suite:
 
-The emulator UI is at **http://127.0.0.1:4000/**. Do not treat emulator data as production data or use production credentials with this workflow. Firebase is not wired to the website API yet: the current server and browser login continue to use SQLite until the API's data access, cookie/CSRF authentication, and password-reset flows are migrated and tested together. No production migration or deployment is configured.
+```powershell
+$env:FIREBASE_WEB_API_KEY="fake-api-key"
+$env:PUBLIC_APP_ORIGIN="http://127.0.0.1:3000"
+npm.cmd run test:firebase
+```
 
-Open **http://localhost:3000/** (public landing page), **/careers.html** (job applications), **/portal.html** (secure role dashboards), and **/certificate.html** (certificate verification).
+The emulator suite imports the ignored backup, exercises password reset and login, and tests Firestore-backed forms, role permissions, course progress, assignments, and employee tasks. Google Drive requests are covered with mocked API responses; emulator tests never call Google or Firebase production services. Emulator UI: `http://127.0.0.1:4000/`.
 
-Demo accounts (all use password **HackademicDemo!2026** unless `DEMO_PASSWORD` is set before seeding):
+## Vercel configuration
 
-- `admin@hackademic.demo` — administrator
-- `hr@hackademic.demo` — HR
-- `instructor@hackademic.demo` — instructor
-- `student@hackademic.demo` — student
-- `team@hackademic.demo` — employee
+Import this repository with the **repository root** as the Vercel project root. `vercel.json` publishes `public/` and routes `api/[...path].js` as a Node serverless function. Configure these environment variables in Vercel's encrypted settings:
 
-Demo certificate ID for the public verification page: `HA-2026-001` (created by `npm run demo`).
+- `FIREBASE_PROJECT_ID` — the intended Firebase project ID.
+- `FIREBASE_WEB_API_KEY`, `FIREBASE_AUTH_DOMAIN`, and `FIREBASE_WEB_APP_ID` — public Firebase Web App configuration used by client Authentication.
+- `FIREBASE_SERVICE_ACCOUNT_JSON` — service-account JSON for the server-side Firebase Admin SDK; grant only required Auth and Firestore permissions.
+- `PUBLIC_APP_ORIGIN` — the canonical HTTPS origin used for reset links; do not derive this from request headers.
+- `NODE_ENV=production` — enables secure session cookies.
+- `GOOGLE_DRIVE_OWNER_EMAIL`, `GOOGLE_DRIVE_CLIENT_ID`, `GOOGLE_DRIVE_CLIENT_SECRET`, and `GOOGLE_DRIVE_REFRESH_TOKEN` — server-only credentials for the admin-owned Google Drive account. Authorize only the `drive.file` scope.
+- `GOOGLE_PICKER_API_KEY` and `GOOGLE_CLOUD_PROJECT_NUMBER` — Picker configuration; restrict the API key to the approved site origin.
 
-`npm run demo` only seeds an empty user database. **Never run the demo seeder in production.** Delete the local `data/hackademic.db*` files to reset the local prototype.
+The app links existing student Firebase accounts to Google only when both verified email addresses match. Admins must register each course folder before approving an enrollment. Drive permissions are direct `user`/`reader` grants with an expiry of at most one year; cancellation removes the stored permission ID and verifies it is absent. Never enable public or domain-wide access. Firestore client rules remain deny-by-default; enrollment and permission records are server-managed.
 
-## Implemented workflows
+No Drive credentials, cloud resources, Vercel settings, billing plans, DNS, production data, or deployment were changed for this local implementation. Google OAuth provider setup, Drive OAuth consent/refresh-token creation, staging configuration, and any deployment require separate approval.
 
-- Public animated landing page, persistent enquiry submission and job listings/application form
-- Public certificate lookup by certificate number
-- Role-based login with HttpOnly SameSite session cookie, scrypt password hashing, CSRF header, basic request throttling and server-side role authorization
-- Manager workspace: website queries, student accounts and enrollments, employees, course/service creation, batch creation, lesson publishing with hosted recordings or uploaded videos, and employee leave approvals
-- Admin workspace sidebar: employees, task assignment and tracking, per-page SEO controls, blog publishing, and employee leave approvals
-- Employee workspace: view assigned tasks, update progress, and mark work completed; in-app reminders highlight overdue tasks and deadlines within three days
-- Employee accounts are created with an initial password of at least 12 characters in the Manager or Admin employee directory
-- Student LMS: enrolled courses, lessons, completion tracking, quizzes with server-side scoring, assignment submissions, support tickets
-- Instructor: lesson publishing and video uploads for assigned courses, assignment submission review and grading
-- HR is the internal role name for the Manager workspace
-- Uploaded lesson videos are stored outside the public web root, limited to 500 MB each, and streamed only to authorized staff or enrolled students
-- SQLite persistence, parameterized SQL, output escaping in portal UI, basic audit logging
-- Firebase Emulator Suite configuration and a read-only, repeatable SQLite-to-Firestore/Auth importer (migration foundation only)
+## Runtime and migration notes
 
-## Before going live
-
-This is a **development MVP, not a production-ready enterprise LMS**. Before using Firebase for the live application, migrate every API query and write to Firestore, replace SQLite session authentication with Firebase ID-token verification and a compatible CSRF/cookie strategy, implement a user-facing reset-required/password-reset flow, and validate authorization and behavior against the emulators. You must also add email verification, robust login-specific rate limiting, persistent audit/observability, backup/restore, privacy and retention controls, fine-grained permissions, payment gateway and webhook verification, certificate issuance workflow (the public lookup verifies records already issued and stored), cloud video/storage integration, live classes, attendance, automated messaging, production-quality input validation, accessibility QA, security testing, and a deployment/SSL setup. Public reference-page statistics, reviews, prices and course descriptions are illustrative until approved.
-
-The website demo uses SQLite and Node's built-in HTTP server. Local video uploads use disk storage; configure cloud storage before production use. SEO controls update metadata served by this app and its sitemap/robots files, but do not provide search-rank tracking or analytics integrations. Set `NODE_ENV=production` only behind HTTPS with trusted reverse-proxy configuration; secure cookies require HTTPS. Use a fresh production database with no demo users.
-
-## Layout
-
-- `server.js` — HTTP server, API endpoints, authentication and authorization
-- `db.js` — SQLite schema, seed course content and optional demo accounts
-- `firebase.json`, `firestore.rules` — local Firebase emulator configuration and deny-by-default client rules
-- `scripts/migrate-to-firebase.js` — read-only SQLite to emulator migration importer
-- `public/index.html` — animated Hackademic reference-based landing page
-- `public/certificate.html`, `public/certificate-verify.js` — public certificate verification page
-- `public/portal.html`, `portal.css`, `portal.js` — multi-role dashboard
-- `public/careers.html`, `careers.js` — jobs and application page
-- `public/public-api.js` — public enquiry form API integration
-- `tests/` — automated API smoke tests
+- `api/[...path].js` contains the Firebase-backed API, and `api/firebase-runtime.js` provides Firebase Auth sessions, CSRF checks, and reset support.
+- `api/google-drive.js` implements the server-side `drive.file` operations; only a short-lived access token for Google Picker is returned to an authenticated admin.
+- `api/google-identity.js` enforces verified, matching Firebase and linked Google account emails.
+- `api/firestore-store.js` implements Firestore document access and ID allocation.
+- `server.js` serves the static website locally and forwards API requests to the same serverless handler; it no longer opens SQLite.
+- `db.js` and `scripts/demo.js` remain for legacy backup/import preparation only. `npm run demo` seeds a local SQLite source database; it does not seed the live website.
+- The SQLite backup is retained at `data/hackademic-before-firebase-20261124.db` and is Git-ignored. Do not delete it.
+- Admin-managed SEO records are stored in Firestore. The deployed static HTML still ships its checked-in metadata; dynamic per-page metadata rendering and sitemap/robots rewrites need verification before production.

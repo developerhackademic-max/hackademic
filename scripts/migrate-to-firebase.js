@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('node:path');
-const crypto = require('node:crypto');
 const { DatabaseSync } = require('node:sqlite');
 
 const BATCH_SIZE = 450;
@@ -28,6 +27,7 @@ function validateEmulatorConfig(env = process.env) {
 function documentId(table, row) {
   if (row.id !== undefined && row.id !== null) return String(row.id);
   if (table === 'lesson_progress') return `${row.user_id}_${row.lesson_id}`;
+  if (table === 'seo_pages' && row.page) return String(row.page);
   if (table === 'sessions') return null;
   throw new Error(`Cannot determine a stable document ID for ${table}.`);
 }
@@ -43,32 +43,53 @@ function sanitizeRow(table, row, authUid) {
   return safe;
 }
 
-async function ensureAuthUser(auth, user) {
-  let account;
+async function findExistingAuthUser(auth, lookup, identifier) {
   try {
-    account = await auth.getUserByEmail(user.email);
+    return await auth[lookup](identifier);
   } catch (error) {
-    if (error.code !== 'auth/user-not-found') throw error;
+    if (error.code === 'auth/user-not-found') return null;
+    throw error;
   }
-  if (!account) {
-    account = await auth.createUser({
-      email: user.email,
+}
+
+async function ensureAuthUser(auth, user) {
+  const legacyId = Number(user.id);
+  const stableUid = `ha-${legacyId}`;
+  let account = await findExistingAuthUser(auth, 'getUserByEmail', user.email);
+  if (!account) account = await findExistingAuthUser(auth, 'getUser', stableUid);
+  if (account) {
+    const sameEmail = account.email?.toLowerCase() === user.email.toLowerCase();
+    const sameLegacyUser = Number(account.customClaims?.legacyUserId) === legacyId;
+    if (!sameEmail || (account.uid !== stableUid && !sameLegacyUser)) {
+      throw new Error(`Firebase account collision for legacy user ${legacyId}; no profile was overwritten.`);
+    }
+    account = await auth.updateUser(account.uid, {
       displayName: user.name,
       disabled: !Boolean(user.active)
     });
   } else {
-    account = await auth.updateUser(account.uid, {
+    account = await auth.createUser({
+      uid: stableUid,
+      email: user.email,
       displayName: user.name,
-      disabled: !Boolean(user.active),
-      password: crypto.randomBytes(48).toString('base64url')
+      disabled: !Boolean(user.active)
     });
   }
   await auth.setCustomUserClaims(account.uid, {
+    ...account.customClaims,
     role: user.role,
-    legacyUserId: Number(user.id),
-    passwordResetRequired: true
+    legacyUserId: legacyId,
+    passwordResetRequired: account.customClaims?.passwordResetRequired === false ? false : true
   });
   return account.uid;
+}
+
+async function importAuthUsers(auth, users) {
+  const userUids = new Map();
+  for (const user of users) {
+    userUids.set(String(user.id), await ensureAuthUser(auth, user));
+  }
+  return userUids;
 }
 
 async function writeRows(firestore, table, rows, userUids = new Map()) {
@@ -80,7 +101,16 @@ async function writeRows(firestore, table, rows, userUids = new Map()) {
       const id = documentId(table, row);
       if (!id) continue;
       const uid = table === 'users' ? userUids.get(String(row.id)) : undefined;
-      batch.set(firestore.collection(table).doc(id), sanitizeRow(table, row, uid));
+      const ref = firestore.collection(table).doc(id);
+      const safe = sanitizeRow(table, row, uid);
+      if (table === 'users') {
+        const existing = await ref.get();
+        if (existing.exists && existing.data().auth_uid === uid
+          && existing.data().password_reset_required === false) {
+          safe.password_reset_required = false;
+        }
+      }
+      batch.set(ref, safe);
       imported += 1;
     }
     if (chunk.length > 0) await batch.commit();
@@ -106,13 +136,10 @@ async function migrate({ sourceFile, env = process.env } = {}) {
   const userRows = tables.includes('users')
     ? sqlite.prepare('SELECT * FROM users ORDER BY id').all()
     : [];
-  const userUids = new Map();
   const counts = {};
 
   try {
-    for (const user of userRows) {
-      userUids.set(String(user.id), await ensureAuthUser(auth, user));
-    }
+    const userUids = await importAuthUsers(auth, userRows);
     for (const table of tables) {
       const rows = sqlite.prepare(`SELECT * FROM "${table}"`).all();
       counts[table] = await writeRows(firestore, table, rows, userUids);
@@ -126,7 +153,7 @@ async function migrate({ sourceFile, env = process.env } = {}) {
 if (require.main === module) {
   migrate().then(report => {
     console.log(JSON.stringify(report, null, 2));
-    console.log('Legacy sessions were not imported. Migrated users must complete Firebase password reset before signing in.');
+    console.log('Legacy sessions were not imported. Migrated users must reset their passwords before signing in.');
   }).catch(error => {
     console.error(`Firebase emulator migration failed: ${error.message}`);
     process.exitCode = 1;
@@ -136,6 +163,8 @@ if (require.main === module) {
 module.exports = {
   documentId,
   sanitizeRow,
+  ensureAuthUser,
+  importAuthUsers,
   validateEmulatorConfig,
   validateReadOnlySqliteRuntime,
   writeRows,

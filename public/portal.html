@@ -36,8 +36,14 @@
       <label>Password<input name="password" type="password" placeholder="Your password" required autocomplete="current-password"></label>
       <button class="primary">Sign in <span>→</span></button>
     </form>
+    <button id="showPasswordReset" class="secondary" type="button">Forgot your password?</button>
+    <form id="passwordResetForm" hidden>
+      <label>Email address<input name="email" type="email" placeholder="you@example.com" required autocomplete="email"></label>
+      <button class="primary">Send reset instructions</button>
+      <button id="cancelPasswordReset" class="secondary" type="button">Back to sign in</button>
+    </form>
     <a href="/">← Return to website</a>
-    <p class="hint">Demo accounts and passwords are provided in README.md.</p>
+    <p class="hint">For access, contact your Hackademic administrator. Use password reset if you cannot sign in.</p>
   </div>
   <div class="login-art">
     <div class="orb"><span>⌘</span></div>
@@ -110,6 +116,6 @@
     <div class="site-footer__bottom"><span>© 2026 HACKADEMIC. All rights reserved.</span></div>
   </div>
 </footer>
-<script defer src="/portal.js"></script>
+<script type="module" src="/portal.js"></script>
 </body>
 </html>
