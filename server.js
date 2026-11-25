@@ -3,12 +3,12 @@
 const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
-const api = require('./api/[...path].js');
+const api = require('./lib/api-handler');
 const pageApi = require('./api/page.js');
 const sitemapApi = require('./api/sitemap.js');
 const robotsApi = require('./api/robots.js');
-const { firebase } = require('./api/firebase-runtime');
-const { applySeo } = require('./api/seo');
+const { firebase } = require('./lib/firebase-runtime');
+const { applySeo } = require('./lib/seo');
 
 const publicRoot = path.join(__dirname, 'public');
 const contentTypes = {

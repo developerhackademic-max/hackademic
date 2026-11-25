@@ -1,8 +1,8 @@
 'use strict';
 
 const path = require('node:path');
-const { firebase } = require('./firebase-runtime');
-const { sitemapXml } = require('./seo');
+const { firebase } = require('../lib/firebase-runtime');
+const { sitemapXml } = require('../lib/seo');
 
 module.exports = async function sitemap(request, response) {
   try {

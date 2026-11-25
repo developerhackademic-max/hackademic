@@ -2,8 +2,8 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { HttpError } = require('../api/firebase-runtime');
-const { assertLinkedGoogleIdentity } = require('../api/google-identity');
+const { HttpError } = require('../lib/firebase-runtime');
+const { assertLinkedGoogleIdentity } = require('../lib/google-identity');
 
 test('Google linking requires a verified matching Firebase email and one Google provider', () => {
   const account = {

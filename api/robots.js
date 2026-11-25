@@ -1,7 +1,7 @@
 'use strict';
 
-const { firebase } = require('./firebase-runtime');
-const { robotsTxt } = require('./seo');
+const { firebase } = require('../lib/firebase-runtime');
+const { robotsTxt } = require('../lib/seo');
 
 module.exports = async function robots(request, response) {
   try {

@@ -74,10 +74,10 @@ No Drive credentials, cloud resources, Vercel settings, billing plans, DNS, prod
 
 ## Runtime and migration notes
 
-- `api/[...path].js` contains the Firebase-backed API, and `api/firebase-runtime.js` provides Firebase Auth sessions, CSRF checks, and reset support.
-- `api/google-drive.js` implements the server-side `drive.file` operations; only a short-lived access token for Google Picker is returned to an authenticated admin.
-- `api/google-identity.js` enforces verified, matching Firebase and linked Google account emails.
-- `api/firestore-store.js` implements Firestore document access and ID allocation.
+- `lib/api-handler.js` contains the Firebase-backed API, and `lib/firebase-runtime.js` provides Firebase Auth sessions, CSRF checks, and reset support. Small route files under `api/` forward requests to the shared handler.
+- `lib/google-drive.js` implements the server-side `drive.file` operations; only a short-lived access token for Google Picker is returned to an authenticated admin.
+- `lib/google-identity.js` enforces verified, matching Firebase and linked Google account emails.
+- `lib/firestore-store.js` implements Firestore document access and ID allocation.
 - `server.js` serves the static website locally and forwards API requests to the same serverless handler; it no longer opens SQLite.
 - `db.js` and `scripts/demo.js` remain for legacy backup/import preparation only. `npm run demo` seeds a local SQLite source database; it does not seed the live website.
 - The SQLite backup is retained at `data/hackademic-before-firebase-20261124.db` and is Git-ignored. Do not delete it.

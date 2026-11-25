@@ -2,14 +2,14 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { HttpError } = require('../api/firebase-runtime');
+const { HttpError } = require('../lib/firebase-runtime');
 const {
   DRIVE_FILE_SCOPE,
   createDriveApi,
   deletePermissionAndVerify,
   validateCourseFolder,
   validateCourseVideo
-} = require('../api/google-drive');
+} = require('../lib/google-drive');
 
 const env = {
   GOOGLE_DRIVE_OWNER_EMAIL: 'drive-owner@example.test',

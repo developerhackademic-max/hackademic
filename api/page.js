@@ -2,8 +2,8 @@
 
 const fs = require('node:fs/promises');
 const path = require('node:path');
-const { firebase } = require('./firebase-runtime');
-const { applySeo } = require('./seo');
+const { firebase } = require('../lib/firebase-runtime');
+const { applySeo } = require('../lib/seo');
 
 const publicRoot = path.join(__dirname, '..', 'public');
 const securityHeaders = {
