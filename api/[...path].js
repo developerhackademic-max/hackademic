@@ -444,8 +444,6 @@ async function getPublicCertificate(firestore, code) {
 }
 
 async function publicApi(request, response, path, method, body, firestore) {
-  if (path === '/api/health' && method === 'GET') return sendJson(response, 200, { ok: true });
-
   if (path === '/api/courses' && method === 'GET') {
     const items = (await list(firestore, 'courses')).filter(course => course.published === 1)
       .sort((a, b) => Number(b.featured) - Number(a.featured) || Number(a.id) - Number(b.id))
@@ -569,6 +567,7 @@ async function handler(request, response) {
     const path = url.pathname;
     const method = request.method || 'GET';
     const body = ['GET', 'HEAD'].includes(method) ? {} : await readJson(request);
+    if (path === '/api/health' && method === 'GET') return sendJson(response, 200, { ok: true });
     const { auth, firestore } = firebase();
 
     if (path === '/api/auth/config' && method === 'GET') {

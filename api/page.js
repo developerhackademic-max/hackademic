@@ -38,9 +38,11 @@ module.exports = async function page(request, response) {
       }
       throw error;
     }
-    const { firestore } = firebase();
-    const seo = await firestore.collection('seo_pages').doc(filename).get();
-    if (seo.exists) html = applySeo(html, seo.data());
+    if (process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT) {
+      const { firestore } = firebase();
+      const seo = await firestore.collection('seo_pages').doc(filename).get();
+      if (seo.exists) html = applySeo(html, seo.data());
+    }
     response.writeHead(200, securityHeaders);
     response.end(request.method === 'HEAD' ? undefined : html);
   } catch (error) {
