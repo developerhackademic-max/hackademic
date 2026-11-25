@@ -20,7 +20,7 @@ function responseRecorder() {
   };
 }
 
-test('health and static pages work before Firebase configuration is present', async () => {
+test('health and static pages work without Firebase Admin credentials', async () => {
   const keys = [
     'FIREBASE_PROJECT_ID',
     'GCLOUD_PROJECT',
@@ -46,6 +46,7 @@ test('health and static pages work before Firebase configuration is present', as
       error: 'Firebase client authentication is not configured'
     });
 
+    process.env.FIREBASE_PROJECT_ID = 'hackademic-website';
     const html = responseRecorder();
     await page({ method: 'GET', url: '/api/page?path=index.html' }, html);
     assert.equal(html.statusCode, 200);

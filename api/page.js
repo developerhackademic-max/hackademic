@@ -38,7 +38,8 @@ module.exports = async function page(request, response) {
       }
       throw error;
     }
-    if (process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT) {
+    if ((process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT)
+      && process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
       const { firestore } = firebase();
       const seo = await firestore.collection('seo_pages').doc(filename).get();
       if (seo.exists) html = applySeo(html, seo.data());
