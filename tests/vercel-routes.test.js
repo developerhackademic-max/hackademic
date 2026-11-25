@@ -21,10 +21,17 @@ function responseRecorder() {
 }
 
 test('health and static pages work before Firebase configuration is present', async () => {
-  const previousProjectId = process.env.FIREBASE_PROJECT_ID;
-  const previousGcloudProject = process.env.GCLOUD_PROJECT;
-  delete process.env.FIREBASE_PROJECT_ID;
-  delete process.env.GCLOUD_PROJECT;
+  const keys = [
+    'FIREBASE_PROJECT_ID',
+    'GCLOUD_PROJECT',
+    'FIREBASE_WEB_API_KEY',
+    'FIREBASE_AUTH_DOMAIN',
+    'FIREBASE_WEB_APP_ID',
+    'FIREBASE_AUTH_EMULATOR_HOST',
+    'FIREBASE_SERVICE_ACCOUNT_JSON'
+  ];
+  const previous = Object.fromEntries(keys.map(key => [key, process.env[key]]));
+  for (const key of keys) delete process.env[key];
 
   try {
     const health = responseRecorder();
@@ -32,14 +39,21 @@ test('health and static pages work before Firebase configuration is present', as
     assert.equal(health.statusCode, 200);
     assert.deepEqual(JSON.parse(health.body), { ok: true });
 
+    const authConfig = responseRecorder();
+    await api({ method: 'GET', url: '/api/auth/config', headers: {} }, authConfig);
+    assert.equal(authConfig.statusCode, 503);
+    assert.deepEqual(JSON.parse(authConfig.body), {
+      error: 'Firebase client authentication is not configured'
+    });
+
     const html = responseRecorder();
     await page({ method: 'GET', url: '/api/page?path=index.html' }, html);
     assert.equal(html.statusCode, 200);
     assert.match(html.body, /<html/i);
   } finally {
-    if (previousProjectId === undefined) delete process.env.FIREBASE_PROJECT_ID;
-    else process.env.FIREBASE_PROJECT_ID = previousProjectId;
-    if (previousGcloudProject === undefined) delete process.env.GCLOUD_PROJECT;
-    else process.env.GCLOUD_PROJECT = previousGcloudProject;
+    for (const key of keys) {
+      if (previous[key] === undefined) delete process.env[key];
+      else process.env[key] = previous[key];
+    }
   }
 });
