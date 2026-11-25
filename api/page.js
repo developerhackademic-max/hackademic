@@ -12,6 +12,24 @@ const securityHeaders = {
   'X-Content-Type-Options': 'nosniff'
 };
 
+function validServiceAccount(projectId) {
+  let account;
+  try {
+    account = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON || '');
+  } catch {
+    console.error('Dynamic SEO disabled: FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON.');
+    return false;
+  }
+  if (!account || account.type !== 'service_account'
+    || account.project_id !== projectId
+    || typeof account.client_email !== 'string'
+    || typeof account.private_key !== 'string') {
+    console.error('Dynamic SEO disabled: service-account JSON does not match the Firebase project.');
+    return false;
+  }
+  return true;
+}
+
 module.exports = async function page(request, response) {
   try {
     if (request.method !== 'GET' && request.method !== 'HEAD') {
@@ -38,8 +56,8 @@ module.exports = async function page(request, response) {
       }
       throw error;
     }
-    if ((process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT)
-      && process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+    const projectId = process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT;
+    if (projectId && process.env.FIREBASE_SERVICE_ACCOUNT_JSON && validServiceAccount(projectId)) {
       const { firestore } = firebase();
       const seo = await firestore.collection('seo_pages').doc(filename).get();
       if (seo.exists) html = applySeo(html, seo.data());
