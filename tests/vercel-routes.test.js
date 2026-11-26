@@ -34,11 +34,11 @@ test('legacy About URL redirects to the canonical page', () => {
   ));
 });
 
-test('legacy course application URLs redirect to the enrollment form with the course', () => {
+test('legacy course application URLs redirect to the courses page', () => {
   const config = JSON.parse(fs.readFileSync(require.resolve('../vercel.json'), 'utf8'));
   assert.ok(config.redirects.some(redirect =>
     redirect.source === '/apply/:course' &&
-    redirect.destination === '/enroll.html?course=:course' &&
+    redirect.destination === '/courses.html' &&
     redirect.permanent === true
   ));
 });

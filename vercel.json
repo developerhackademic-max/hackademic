@@ -2,7 +2,7 @@
   "framework": null,
   "outputDirectory": "public",
   "redirects": [
-    { "source": "/apply/:course", "destination": "/enroll.html?course=:course", "permanent": true },
+    { "source": "/apply/:course", "destination": "/courses.html", "permanent": true },
     { "source": "/about", "destination": "/about.html", "permanent": true }
   ],
   "rewrites": [
