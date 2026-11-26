@@ -51,6 +51,8 @@ test('health and static pages work without Firebase Admin credentials', async ()
     await page({ method: 'GET', url: '/api/page?path=index.html' }, html);
     assert.equal(html.statusCode, 200);
     assert.match(html.body, /<html/i);
+    assert.match(html.body, /<meta property="og:site_name" content="HACKADEMIC PVT LTD">/);
+    assert.match(html.body, /"@type":"WebSite","name":"HACKADEMIC PVT LTD"/);
 
     const portal = responseRecorder();
     await page({ method: 'GET', url: '/api/page?path=portal.html' }, portal);
