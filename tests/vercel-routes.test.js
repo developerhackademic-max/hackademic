@@ -3,8 +3,27 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path');
 const api = require('../api/[...path].js');
 const page = require('../api/page.js');
+
+test('cyber security course keyword appears only in homepage and courses footers', () => {
+  const publicDir = path.join(__dirname, '..', 'public');
+  const targetPages = new Set(['index.html', 'courses.html']);
+  const keyword = 'best cyber security course in Dehradun';
+
+  for (const filename of fs.readdirSync(publicDir).filter(name => name.endsWith('.html'))) {
+    const html = fs.readFileSync(path.join(publicDir, filename), 'utf8');
+    const footer = html.match(/<p class="site-footer__description">([\s\S]*?)<\/p>/);
+    if (!footer) continue;
+
+    assert.equal(
+      footer[1].includes(keyword),
+      targetPages.has(filename),
+      `${filename} footer keyword placement`
+    );
+  }
+});
 
 test('legacy About URL redirects to the canonical page', () => {
   const config = JSON.parse(fs.readFileSync(require.resolve('../vercel.json'), 'utf8'));
