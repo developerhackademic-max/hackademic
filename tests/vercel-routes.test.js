@@ -2,8 +2,18 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
 const api = require('../api/[...path].js');
 const page = require('../api/page.js');
+
+test('legacy About URL redirects to the canonical page', () => {
+  const config = JSON.parse(fs.readFileSync(require.resolve('../vercel.json'), 'utf8'));
+  assert.ok(config.redirects.some(redirect =>
+    redirect.source === '/about' &&
+    redirect.destination === '/about.html' &&
+    redirect.permanent === true
+  ));
+});
 
 function responseRecorder() {
   return {

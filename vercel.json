@@ -1,6 +1,9 @@
 {
   "framework": null,
   "outputDirectory": "public",
+  "redirects": [
+    { "source": "/about", "destination": "/about.html", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/robots.txt", "destination": "/api/robots" }
