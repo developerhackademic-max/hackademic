@@ -52,6 +52,12 @@ test('health and static pages work without Firebase Admin credentials', async ()
     assert.equal(html.statusCode, 200);
     assert.match(html.body, /<html/i);
 
+    const portal = responseRecorder();
+    await page({ method: 'GET', url: '/api/page?path=portal.html' }, portal);
+    assert.equal(portal.statusCode, 200);
+    assert.match(portal.body, /id="loginForm"/);
+    assert.doesNotMatch(portal.body, /showPasswordReset|passwordResetForm|Forgot your password|Send reset instructions|Use password reset/i);
+
     process.env.FIREBASE_SERVICE_ACCOUNT_JSON = '{invalid';
     const htmlWithInvalidCredentials = responseRecorder();
     await page({ method: 'GET', url: '/api/page?path=index.html' }, htmlWithInvalidCredentials);

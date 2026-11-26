@@ -186,9 +186,6 @@ async function lessonsAdmin(){
 }
 async function tickets(){const d=await api('/api/tickets');html(panel('Open support request',form('ticketForm',[['subject','Subject'],['message','How can we help?','textarea']]))+panel('Support history',table(d.items,[['subject','Subject'],['message','Message'],['status','Status'],['reply','Reply'],['created_at','Created']],me.role==='admin'?r=>statusActions(r,'tickets',['open','resolved']):null)));handleForm('ticketForm','/api/tickets',()=>show('tickets'));bindStatuses()}
 $('#loginForm').onsubmit=async e=>{e.preventDefault();const data=formData(e.target);try{const d=await portalAuth.signIn(data.email,data.password);me=d.user;token=d.csrf;shell()}catch(error){toast(error.message)}};
-$('#showPasswordReset').onclick=()=>{$('#loginForm').hidden=true;$('#showPasswordReset').hidden=true;$('#passwordResetForm').hidden=false};
-$('#cancelPasswordReset').onclick=()=>{$('#passwordResetForm').hidden=true;$('#loginForm').hidden=false;$('#showPasswordReset').hidden=false};
-$('#passwordResetForm').onsubmit=async e=>{e.preventDefault();try{const result=await api('/api/auth/reset/request','POST',formData(e.target));toast(result.message);e.target.reset();$('#passwordResetForm').hidden=true;$('#loginForm').hidden=false;$('#showPasswordReset').hidden=false}catch(error){toast(error.message)}};
 $('#logout').onclick=async()=>{try{await api('/api/auth/logout','POST',{})}catch(error){toast(error.message)}try{await portalAuth.signOut()}catch(error){toast(error.message)}location.reload()};
 $('#menu').onclick=()=>$('aside').classList.toggle('open');
 (async()=>{try{const d=await api('/api/auth/me');if(d.user){me=d.user;token=d.csrf;shell()}}catch{}})();
